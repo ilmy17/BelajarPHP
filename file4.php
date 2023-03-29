@@ -4,9 +4,9 @@ $totalBelanja = 300000;
 $keterangan = "";
 
 if($totalBelanja > 100000){
-    $keterangan = "Selamat $nama Anda dapat hadiah";
+    $keterangan = "Selamat $nama Anda Mendapatkan Hadiah";
 } else {
-    $keterangan = "Terimakasih $nama sudah berbelanja";
+    $keterangan = "Terimakasih $nama Sudah Berbelanja";
 }
 ?>
 
