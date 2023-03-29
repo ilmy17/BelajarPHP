@@ -124,10 +124,11 @@ $nilai = [
     }
 
     thead {
-        height: 30px;
+        height: 40px;
     }
 
     tbody td {
         height: 20px;
     }
+
 </style>
