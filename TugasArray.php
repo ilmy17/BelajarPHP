@@ -1,174 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahasiswa</title>
+</head>
+<body>
+
 <?php 
-$ar_prodi = ["SI"=>"Sistem Informasi", "TI"=>"Teknik Informatika", "TK"=>"Teknik Kimia","TE"=>"Teknik Elektro"];
-$ar_skill = ["HTML"=>10, "CSS"=>10, "Javascript"=>20, "RWD Bootstrap"=>20, "PHP"=>30, "MySQL"=>30, "Laravel"=>40];
-$domisili = ["Makassar","Pinrang","Barru","Pangkep","Parepare","Lainnya"];
+$m1 = ['NIM'=>'01111021', 'Nama'=>'nurul', 'Nilai'=>80];
+$m2 = ['NIM'=>'01111022', 'Nama'=>'Ani', 'Nilai'=>70];
+$m3 = ['NIM'=>'01111023', 'Nama'=>'ilmy', 'Nilai'=>50];
+$m4 = ['NIM'=>'01111024', 'Nama'=>'Ari', 'Nilai'=>40];
+$m5 = ['NIM'=>'01111025', 'Nama'=>'Alin', 'Nilai'=>90];
+$m6 = ['NIM'=>'01111026', 'Nama'=>'Ain', 'Nilai'=>75];
+$m7 = ['NIM'=>'01111027', 'Nama'=>'adi', 'Nilai'=>30];
+$m8 = ['NIM'=>'01111028', 'Nama'=>'ani', 'Nilai'=>85];
+
+$mahasiswa = [$m1, $m2, $m3, $m4, $m5, $m6, $m7, $m8];
+$ar_judul = ['No','NIM','Nama','Nilai','Keterangan','Grade','Predikat'];
+
+$jumlah_data = count($mahasiswa);
+$jml_nilai = array_column($mahasiswa,'Nilai');
+$rata_nilai = array_sum($jml_nilai);
+
+$max_ni = max ($jml_nilai);
+$min_ni = min ($jml_nilai);
+$rata_ni = $rata_nilai / $jumlah_data;
+
+
+$nilai = [
+    'Jumlah Mahasiswa'=>$jumlah_data,
+    'Nilai Tertingi'=>$max_ni,
+    'Nilai Terendah'=>$min_ni,
+    'Nilai Rata-rata'=>$rata_ni
+]
 
 ?>
 
-<fieldset>
+<table>
+    <thead>
 
-    <table>
-        <thead>
-            <tr>
-                <th colspan="2" height="40px">Form Registrasi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <form method="POST">
-                <tr>
-                    <td>NIM </td>
-                    <td>: 
-                        <input type="text" name="nim">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nama </td>
-                    <td>: 
-                        <input type="text" name="nama">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Email </td>
-                    <td>: 
-                        <input type="email" name="email">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Jenis Kelamin </td>
-                    <td>: 
-                        <input type="radio" name="jk" value="L" checked>Male &nbsp;
-                        <input type="radio" name="jk" value="P">Female
-                    </td>
-                </tr>
-                <tr>
-                    <td>Program Studi </td>
-                    <td>: 
-                        <select name="prodi">
-                            <?php
+    <tr>
+    <?php 
+    foreach($ar_judul as $judul){
+    ?>
 
-                            foreach($ar_prodi as $prodi => $v){
-                                ?>
-                                <option value="<?= $prodi?>"><?= $v?></option>
+        <th>
+            <?= $judul ?>
+        </th>
 
-                            <?php } ?>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Skill Programming </td>
-                    <td>: 
-                        <?php
-                        foreach ($ar_skill as $skill => $s){
-                            ?>
-                        <input type="checkbox" name="skill[]" value="<?= $skill ?>" checked><?= $skill ?>
+    <?php }?>
+    </tr>
+    
+    </thead>
+    <tbody>
 
-                        <?php } ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Domisili </td>
-                    <td>: 
-                        <select name="domisili">
-                            <?php
+    <?php
+    $no = 1;
+    foreach($mahasiswa as $mhs){
 
-                            foreach($domisili as $d){
-                                ?>
-                                <option value="<?= $d?>"><?= $d?></option>
+        $ket = ($mhs['Nilai']>= 60) ? 'Lulus' : 'Tidak Lulus';
 
-                            <?php } ?>
-                        </select>
-                    </td>
-                </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <th colspan="2">
-                    <button name="proses" >Submit</button>
-                </th>
-            </tr>
-        </tfoot>
-            </form>
-    </table>
+        // GRADE
+        if($mhs['Nilai'] >= 85 && $mhs['Nilai'] <= 100) $grade ='A';
+        else if($mhs['Nilai'] >= 75 && $mhs['Nilai'] <= 80) $grade ='B';
+        else if($mhs['Nilai'] >= 60 && $mhs['Nilai'] <= 74) $grade ='C';
+        else if($mhs['Nilai'] >= 30 && $mhs['Nilai'] <= 59) $grade ='D';
+        else if($mhs['Nilai'] >= 0 && $mhs['Nilai'] <= 29) $grade ='E';
+        else $grade = '';
 
-</fieldset>
+        // Predikat Nilai
+        switch ($grade){
+            case "A" : $predikat = "Memuaskan"; break;
+            case "B" : $predikat = "Bagus"; break;
+            case "C" : $predikat = "Cukup"; break;
+            case "D" : $predikat = "Kurang"; break;
+            case "E" : $predikat = "Buruk"; break;
+            default: $predikat ="";
+        }
+    ?>
 
-<?php
-// error_reporting(0);
+        <tr>
+            <td><?= $no ?></td>
+            <td><?= $mhs ['NIM'] ?></td>
+            <td><?= $mhs ['Nama'] ?></td>
+            <td><?= $mhs ['Nilai'] ?></td>
+            <td><?= $ket ?></td>
+            <td><?= $grade ?></td>
+            <td><?= $predikat ?></td>
+        </tr>
 
-    function rangeSkill($jml){
-        if($jml <= 0) $range = "Tidak Memadai";
-        else if ($jml <= 40) $range = "Kurang Cukup";
-        else if ($jml <= 60) $range = "Cukup";
-        else if ($jml <= 100) $range = "Baik";
-        else if ($jml <= 160) $range = "Sangat Baik";
-        else $range = "";
-        return $range;
+    <?php $no++; } ?>
+    </tbody>
+
+    <tfoot>
+        <?php
+        foreach($nilai as $ni => $hasil){
+        ?>
+
+        <tr>
+            <td colspan="5"><?= $ni ?></td>
+            <td colspan="2"><?= $hasil ?></td>
+        </tr>
+    </tfoot>
+    
+    <?php }?>
+</table>
+</body>
+</html>
+
+
+<style>
+    body {
+        background: boolval;
+    }
+    table,th,td {
+        border-collapse: collapse;
+        border: 2px solid;
+        text-align: left;
+        width: 500px;
     }
 
-    // Proses Tombol Submit
-    if(isset($_POST['proses'])){
-        $nim = $_POST['nim'];
-        $nama = $_POST['nama'];
-        $jk = $_POST['jk'];
-        $prodi2 = $_POST['prodi'];
-        $skill2 = $_POST['skill'];
-        $domisili = $_POST['domisili'];
-        $email = $_POST['email'];
-
-        // hitung nilai Skill
-        $jumlah = array_sum($skill2);
-
-        // fungsi Kategory skill
-        $range = rangeSkill($jumlah);
+    thead {
+        height: 30px;
     }
-?>
 
-<br>
-<fieldset >
-<legend>Hasil Inputan</legend>
-
-    <table>
-        <tr>
-            <td>NIM</td>
-            <td>: <?= $nim ?> </td>
-        </tr>
-        <tr>
-            <td>Nama</td>
-            <td>: <?= $nama ?> </td>
-        </tr>
-        <tr>
-            <td>Jenis Kelamin</td>
-            <td>: <?= $jk ?> </td>
-        </tr>
-        <tr>
-            <td>Prodi</td>
-            <td>: <?= $prodi2 ?> </td>
-        </tr>
-        <tr>
-            <td>Skill</td>
-            <td>: 
-                <?php
-                foreach($skill2 as $s){ ?>
-                <?= $s ?> ,
-                <?php } ?>
-            </td>
-        </tr>
-        <tr>
-            <td>Skor Skill</td>
-            <td>: <?= $jumlah ?> </td>
-        </tr>
-        <tr>
-            <td>Kategory Skill</td>
-            <td>: <?= $range ?> </td>
-        </tr>
-        <tr>
-            <td>Domisili</td>
-            <td>: <?= $domisili ?> </td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td>: <?= $email ?> </td>
-        </tr>
-    </table>
-
-</fieldset>
+    tbody td {
+        height: 20px;
+    }
+</style>
