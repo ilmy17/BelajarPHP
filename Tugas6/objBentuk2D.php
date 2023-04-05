@@ -3,7 +3,7 @@ require_once 'Lingkaran.php';
 require_once 'PersegiPanjang.php';
 require_once 'Segitiga.php';
 
-$b1 = new Lingkaran (10);
+$b1 = new lingkaran (10);
 $b2 = new PerPan (20,15);
 $b3 = new Segitiga (30,40);
 

@@ -1,5 +1,5 @@
 <?php
-class Pegawai{
+ class Pegawai{
     protected $nip;
     public $nama;
     private $jabatan;

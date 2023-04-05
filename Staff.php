@@ -18,5 +18,4 @@ class Staff extends Person {
         echo '<br> Gaji'.$this->gaji;
     }
 }
-
 ?>
